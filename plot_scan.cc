@@ -256,10 +256,12 @@ void plot_scan(const TString& coupling)
     auto CL68 = new TF1("CL68", "1", -1000000, 1000000);
     CL68->SetLineColor(1);
     CL68->SetLineStyle(9);
-
+    CL68->SetLineWidth(1);
+    
     auto CL95 = new TF1("CL95", "3.84", -1000000, 1000000);
     CL95->SetLineColor(1);
     CL95->SetLineStyle(9);
+    CL95->SetLineWidth(1);
 
     auto scan_exp = read_scans(true, coupling, "emetmttt", "years");
     auto scan_obs = read_scans(false, coupling, "emetmttt", "years");

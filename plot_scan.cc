@@ -288,8 +288,8 @@ void plot_scan(const TString& coupling)
     curve_exp->SetLineColor(1);
     curve_obs->SetLineColor(1);
 
-    curve_exp->SetLineWidth(3);
-    curve_obs->SetLineWidth(3);
+    curve_exp->SetLineWidth(2);
+    curve_obs->SetLineWidth(2);
 
     curve_exp->SetLineStyle(2);
 
@@ -355,8 +355,8 @@ void plot_scan(const TString& coupling)
       spline_exp->SetLineColor(1);
       spline_obs->SetLineColor(1);
 
-      spline_exp->SetLineWidth(3);
-      spline_obs->SetLineWidth(3);
+      spline_exp->SetLineWidth(2);
+      spline_obs->SetLineWidth(2);
 
       spline_exp->SetLineStyle(2);
 

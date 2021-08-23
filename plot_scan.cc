@@ -1,8 +1,8 @@
 #include<algorithm>
 #include <math.h>
 
-#include "tdrstyle.C"
-#include "CMS_lumi.C"
+// #include "tdrstyle.C"
+// #include "CMS_lumi.C"
 
 class Likelihood
 {
@@ -299,54 +299,58 @@ void plot_scan(const TString& coupling)
 
     auto min_poi = get_min_poi(coupling);
     auto max_poi = get_max_poi(coupling);
-    auto min_2nll = -0.01;
+    auto min_2nll = 0.;
     auto max_2nll = get_max_2nll(coupling);
 
     TH2D* frame = new TH2D("frame", "", 10, min_poi, max_poi, 20, min_2nll, max_2nll);
     frame->GetXaxis()->SetTitle(coupling_title);
-    frame->GetXaxis()->CenterTitle();
-    frame->GetXaxis()->SetTitleFont(43);
-    frame->GetXaxis()->SetTitleOffset(1.3);
-    frame->GetXaxis()->SetTitleSize(30);
-    frame->GetXaxis()->SetLabelSize(0.03);
+    frame->GetXaxis()->SetLabelSize(0.04);
+    frame->GetXaxis()->SetLabelOffset(0.01);
+    frame->GetXaxis()->SetTitleSize(.06);
 
     frame->GetYaxis()->SetTitle("#minus 2 #Delta ln L");
-    frame->GetYaxis()->CenterTitle();
-    frame->GetYaxis()->SetTitleFont(43);
-    frame->GetYaxis()->SetTitleOffset(1.3);
-    frame->GetYaxis()->SetTitleSize(30);
-    frame->GetYaxis()->SetLabelSize(0.03);
+    frame->GetYaxis()->SetLabelSize(0.04);
+    frame->GetYaxis()->SetLabelOffset(0.01);
+    frame->GetYaxis()->SetTitleFont(42);
+    frame->GetYaxis()->SetTitleSize(.05);
+    frame->GetYaxis()->SetTitleOffset(1.6);
     frame->SetStats(kFALSE);
 
 
 
-    lumi_13TeV = "138 fb^{-1}";
-    writeExtraText = (coupling == "alpha_ggH" || coupling == "alpha_ggH_ic") ? true : false;
-    extraText = "       Supplementary";
-    drawLogo = false;
-    setTDRStyle();
+    // lumi_13TeV = "138 fb^{-1}";
+    // writeExtraText = (coupling == "alpha_ggH" || coupling == "alpha_ggH_ic") ? true : false;
+    // extraText = "       Supplementary";
+    // drawLogo = false;
+    // setTDRStyle();
 
-    lumiTextSize = .4;
-    cmsTextSize = .5;
+    // lumiTextSize = .4;
+    // cmsTextSize = .5;
 
-    int W = 1200;
-    int H = 1200;
-    int H_ref = 1200;
-    int W_ref = 1200;
+    // int W = 1200;
+    // int H = 1200;
+    // int H_ref = 1200;
+    // int W_ref = 1200;
 
-    // references for T, B, L, R
-    float T = 0.08*H_ref;
-    float B = 0.12*H_ref;
-    float L = 0.12*W_ref;
-    float R = 0.04*W_ref;
+    // // references for T, B, L, R
+    // float T = 0.08*H_ref;
+    // float B = 0.12*H_ref;
+    // float L = 0.12*W_ref;
+    // float R = 0.04*W_ref;
 
     TCanvas* canvas = new TCanvas("canvas","",800,800);  
     canvas->SetFillColor(0);
-    canvas->SetLeftMargin(L/W);
-    canvas->SetRightMargin(R/W);
-    canvas->SetTopMargin(T/H);
-    canvas->SetBottomMargin(B/H);
+    // canvas->SetLeftMargin(L/W);
+    // canvas->SetRightMargin(R/W);
+    // canvas->SetTopMargin(T/H);
+    // canvas->SetBottomMargin(B/H);
+    canvas->SetLeftMargin(.15);
+    canvas->SetTopMargin(.12);
+    canvas->SetBottomMargin(.15);
+    canvas->SetFrameLineWidth(2);
     
+    gPad->SetTickx(1);
+    gPad->SetTicky(1);
     frame->Draw();
 
 
@@ -372,7 +376,7 @@ void plot_scan(const TString& coupling)
     CL68->Draw("SAME");
     CL95->Draw("SAME");
 
-    TLegend* legend = new TLegend(.15,.77,.44,.89);
+    TLegend* legend = new TLegend(.45,.75,.8,.85);
     legend->SetFillStyle(0);
     legend->SetTextSize(0.035);
     legend->SetTextFont(42);
@@ -389,12 +393,28 @@ void plot_scan(const TString& coupling)
     latex.SetTextAlign(31);
     latex.SetTextSize(0.025);    
 
-    latex.DrawLatex(0.23, 0.21,"68% CL");
-    latex.DrawLatex(0.23, 0.44,"95% CL");
+    latex.DrawLatex(0.25, 0.23,"68% CL");
+    latex.DrawLatex(0.25, 0.44,"95% CL");
 
-    CMS_lumi(canvas,4,0);
-    canvas->Update();
-    canvas->RedrawAxis();
-    canvas->GetFrame()->Draw();
+    auto cms = new TLatex();
+    cms->SetNDC(kTRUE);
+    cms->SetTextFont(61);
+    cms->SetTextSize(0.06);
+    cms->DrawLatex(0.18, 0.81, "CMS");
+
+    auto lumi = new TLatex();
+    lumi->SetNDC(kTRUE);
+    lumi->SetTextSize(0.04);
+    lumi->SetTextFont(42);
+    lumi->DrawLatex(0.62, 0.91, "138 fb^{-1} (13 TeV)");
+
+    if (coupling == "alpha_ggH" || coupling == "alpha_ggH_ic") {
+        auto extra = new TLatex();
+        extra->SetNDC(kTRUE);
+        extra->SetTextFont(52);
+        extra->SetTextSize(0.04);
+        extra->DrawLatex(0.18, 0.77, "Supplementary");
+    }
+
     canvas->Print("plots/" + plot_name(coupling) + "_cmb.pdf");
 }

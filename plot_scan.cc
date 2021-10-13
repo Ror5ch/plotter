@@ -403,7 +403,8 @@ void plot_scan(const TString& coupling)
     cms->SetNDC(kTRUE);
     cms->SetTextFont(61);
     cms->SetTextSize(0.06);
-    cms->DrawLatex(0.18, 0.81, "CMS");
+    // cms->DrawLatex(0.18, 0.81, "CMS");
+    cms->DrawLatex(0.18, 0.91, "CMS");
 
     auto lumi = new TLatex();
     lumi->SetNDC(kTRUE);

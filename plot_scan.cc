@@ -376,7 +376,10 @@ void plot_scan(const TString& coupling)
     CL68->Draw("SAME");
     CL95->Draw("SAME");
 
-    TLegend* legend = new TLegend(.45,.75,.8,.85);
+    // TLegend* legend = new TLegend(.45,.75,.8,.85);
+    TLegend* legend = new TLegend(.45,.7,.8,.85);
+    legend->SetHeader("MELA method");
+    if (coupling.Contains("_ic")) legend->SetHeader("#Delta#phi_{jj} method");
     legend->SetFillStyle(0);
     legend->SetTextSize(0.035);
     legend->SetTextFont(42);

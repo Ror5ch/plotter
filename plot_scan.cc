@@ -338,7 +338,7 @@ void plot_scan(const TString& coupling)
     // float L = 0.12*W_ref;
     // float R = 0.04*W_ref;
 
-    TCanvas* canvas = new TCanvas("canvas","",800,800);  
+    TCanvas* canvas = new TCanvas("canvas","",450,450);  
     canvas->SetFillColor(0);
     // canvas->SetLeftMargin(L/W);
     // canvas->SetRightMargin(R/W);
@@ -381,7 +381,7 @@ void plot_scan(const TString& coupling)
     legend->SetHeader("MELA method");
     if (coupling.Contains("_ic")) legend->SetHeader("#Delta#phi_{jj} method");
     legend->SetFillStyle(0);
-    legend->SetTextSize(0.035);
+    legend->SetTextSize(0.042);
     legend->SetTextFont(42);
     legend->AddEntry(curve_obs,"Observed","L");
     legend->AddEntry(curve_exp,"Expected","L");
@@ -394,30 +394,30 @@ void plot_scan(const TString& coupling)
     latex.SetTextColor(kBlack);
     latex.SetTextFont(42);
     latex.SetTextAlign(31);
-    latex.SetTextSize(0.025);    
+    latex.SetTextSize(0.028);    
 
-    latex.DrawLatex(0.25, 0.23,"68% CL");
-    latex.DrawLatex(0.25, 0.44,"95% CL");
+    latex.DrawLatex(0.27, 0.23,"68% CL");
+    latex.DrawLatex(0.27, 0.44,"95% CL");
 
     auto cms = new TLatex();
     cms->SetNDC(kTRUE);
     cms->SetTextFont(61);
     cms->SetTextSize(0.06);
     // cms->DrawLatex(0.18, 0.81, "CMS");
-    cms->DrawLatex(0.18, 0.91, "CMS");
+    cms->DrawLatex(0.15, 0.9, "CMS");
 
     auto lumi = new TLatex();
     lumi->SetNDC(kTRUE);
     lumi->SetTextSize(0.04);
     lumi->SetTextFont(42);
-    lumi->DrawLatex(0.62, 0.91, "138 fb^{-1} (13 TeV)");
+    lumi->DrawLatex(0.64, 0.9, "138 fb^{-1} (13 TeV)");
 
     if (coupling == "alpha_ggH" || coupling == "alpha_ggH_ic") {
         auto extra = new TLatex();
         extra->SetNDC(kTRUE);
         extra->SetTextFont(52);
-        extra->SetTextSize(0.04);
-        extra->DrawLatex(0.18, 0.77, "Supplementary");
+        extra->SetTextSize(0.06*0.76);
+        extra->DrawLatex(0.28, 0.9, "Supplementary");
     }
 
     canvas->Print("plots/" + plot_name(coupling) + "_cmb.pdf");
